@@ -9,8 +9,8 @@ class Customer
         @drunkenness = 0
     end
 
-    def reduce_money_in_wallet(drink)
-        @wallet -= drink.price
+    def reduce_money_in_wallet(input)
+        @wallet -= input.price
     end
 
     def give_drunkenness_level()
@@ -19,6 +19,10 @@ class Customer
 
     def increase_drunkenness_level(drink)
         return @drunkenness += drink.alcohol_level
+    end
+
+    def decrease_drunkenness_level(food)
+        return @drunkenness -= food.rejuvenation_level
     end
 
 end

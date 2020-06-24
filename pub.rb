@@ -12,8 +12,8 @@ class Pub
         return @drinks.count
     end
 
-    def increase_till(drink)
-        return @till += drink.price
+    def increase_till(input)
+        return @till += input.price
     end
 
     def sell_drink_to_customer(customer, drink)
@@ -28,5 +28,10 @@ class Pub
         end
     end
     
+    def sell_food_to_customer(customer, food)
+        customer.decrease_drunkenness_level(food)
+        customer.reduce_money_in_wallet(food)
+        increase_till(food)
+    end
 
 end
