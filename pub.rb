@@ -17,8 +17,12 @@ class Pub
     end
 
     def sell_drink_to_customer(customer, drink)
-        increase_till(drink)
-        customer.reduce_money_in_wallet(drink)
+        if customer.age >= 18 
+            increase_till(drink)
+            customer.reduce_money_in_wallet(drink)
+        else 
+            return "You are too young to drink!"
+        end
     end
     
 
