@@ -7,4 +7,8 @@ class Customer
         @wallet = wallet
     end
 
+    def reduce_money_in_wallet(amount)
+        @wallet -= amount
+    end
+
 end

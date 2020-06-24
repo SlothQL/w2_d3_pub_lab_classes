@@ -17,4 +17,9 @@ class TestCustomer < Minitest::Test
     def test_customer_has_money_in_wallet()
         assert_equal(50, @customer1.wallet())
     end
+
+    def test_customer_gets_money_reduces_in_wallet()
+        @customer1.reduce_money_in_wallet(6)
+        assert_equal(44, @customer1.wallet())
+    end
 end
