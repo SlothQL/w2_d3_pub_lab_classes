@@ -12,22 +12,14 @@ class Pub
         return @drinks.count
     end
 
-    def increase_till(amount)
-        return @till += amount
+    def increase_till(drink)
+        return @till += drink.price
     end
 
-    def get_price_of_drink(search_drink)
-        for drink in @drinks
-            if drink.name() == search_drink.name()
-                return drink.price()
-            end
-        end
-        return nil
+    def sell_drink_to_customer(customer, drink)
+        increase_till(drink)
+        customer.reduce_money_in_wallet(drink)
     end
-
-    #def can_sell_drink_to_customer(customer)
-    #    drink_price = @drink.get_price_of_drink(drink_customer_wants)
-
-    #end
+    
 
 end
