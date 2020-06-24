@@ -16,7 +16,15 @@ class TestPub < Minitest::Test
         @monster_drink = Drink.new("Monster Cocktail", 9, 12)
         @gin = Drink.new("Gordons", 4, 3)
         @pimms = Drink.new("Pimm's", 6, 2)
-        @drinks = [@beer, @gin, @pimms, @monster_drink]
+        @drinks = [{
+            drink: @beer, 
+            stock: 50},
+            {drink: @gin,
+            stock: 20},
+            {drink: @pimms,
+            stock: 5},
+            {drink: @monster_drink,
+            stock: 10}]
         @pub = Pub.new("Ryrie's", 1500, @drinks)
         @peanuts = Food.new("Peanut", 2, 1)
     end
@@ -37,12 +45,23 @@ class TestPub < Minitest::Test
         @pub.increase_till(@gin)
         assert_equal(1504, @pub.till())
     end
+
+    def test_give_stock()
+        stock = @pub.give_stock(@pimms)
+        assert_equal(5, stock)
+    end
+
+    def test_reduce_stock_of_drink()
+        @pub.reduce_stock(@beer)
+        assert_equal(49, @pub.give_stock(@beer))
+    end
     
     def test_can_sell_drink_to_customer_is_old_enough_not_drunk()
         @pub.sell_drink_to_customer(@customer2, @pimms)
         assert_equal(1506, @pub.till())
         assert_equal(39, @customer2.wallet())
         assert_equal(2, @customer2.give_drunkenness_level())
+        assert_equal(4, @pub.give_stock(@pimms))
     end
 
     def test_can_sell_drink_to_customer_is_old_enough_too_drunk()
