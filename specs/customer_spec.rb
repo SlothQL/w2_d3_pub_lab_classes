@@ -9,9 +9,9 @@ class TestCustomer < Minitest::Test
     def setup()
         @customer1 = Customer.new("Alina", 50, 17)
         @customer2 = Customer.new("Rebeka", 45, 24)
-        @beer = Drink.new("Lager", 3)
-        @gin = Drink.new("Gordons", 4)
-        @pimms = Drink.new("Pimm's", 6)
+        @beer = Drink.new("Lager", 3, 1)
+        @gin = Drink.new("Gordons", 4, 3)
+        @pimms = Drink.new("Pimm's", 6, 2)
     end
 
     def test_customer_has_name()
@@ -26,9 +26,18 @@ class TestCustomer < Minitest::Test
         assert_equal(24, @customer2.age())
     end
 
+    def test_customer_drunkenness_level()
+        assert_equal(0, @customer1.give_drunkenness_level())
+    end 
+
     def test_customer_gets_money_reduces_in_wallet()
         @customer1.reduce_money_in_wallet(@gin)
         assert_equal(46, @customer1.wallet())
+    end
+
+    def test_drunkenness_level_gets_increased_by_alcohol_level()
+        @customer1.increase_drunkenness_level(@pimms)
+        assert_equal(2, @customer1.give_drunkenness_level())
     end
 
 end

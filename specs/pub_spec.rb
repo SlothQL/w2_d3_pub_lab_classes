@@ -11,9 +11,9 @@ class TestPub < Minitest::Test
     def setup()
         @customer1 = Customer.new("Alina", 50, 17)
         @customer2 = Customer.new("Rebeka", 45, 24)
-        @beer = Drink.new("Lager", 3)
-        @gin = Drink.new("Gordons", 4)
-        @pimms = Drink.new("Pimm's", 6)
+        @beer = Drink.new("Lager", 3, 1)
+        @gin = Drink.new("Gordons", 4, 3)
+        @pimms = Drink.new("Pimm's", 6, 2)
         @drinks = [@beer, @gin, @pimms]
         @pub = Pub.new("Ryrie's", 1500, @drinks)
     end
