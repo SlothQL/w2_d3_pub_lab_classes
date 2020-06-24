@@ -12,9 +12,10 @@ class TestPub < Minitest::Test
         @customer1 = Customer.new("Alina", 50, 17)
         @customer2 = Customer.new("Rebeka", 45, 24)
         @beer = Drink.new("Lager", 3, 1)
+        @monster_drink = Drink.new("Monster Cocktail", 9, 12)
         @gin = Drink.new("Gordons", 4, 3)
         @pimms = Drink.new("Pimm's", 6, 2)
-        @drinks = [@beer, @gin, @pimms]
+        @drinks = [@beer, @gin, @pimms, @monster_drink]
         @pub = Pub.new("Ryrie's", 1500, @drinks)
     end
 
@@ -27,7 +28,7 @@ class TestPub < Minitest::Test
     end
 
     def test_pub_has_drinks()
-        assert_equal(3, @pub.count_drinks())
+        assert_equal(4, @pub.count_drinks())
     end
 
     def test_increase_till_by_drink_price()
@@ -35,10 +36,19 @@ class TestPub < Minitest::Test
         assert_equal(1504, @pub.till())
     end
     
-    def test_can_sell_drink_to_customer_is_old_enough()
+    def test_can_sell_drink_to_customer_is_old_enough_not_drunk()
         @pub.sell_drink_to_customer(@customer2, @pimms)
         assert_equal(1506, @pub.till())
         assert_equal(39, @customer2.wallet())
+        assert_equal(2, @customer2.give_drunkenness_level())
+    end
+
+    def test_can_sell_drink_to_customer_is_old_enough_too_drunk()
+        @customer2.increase_drunkenness_level(@monster_drink)
+        response = @pub.sell_drink_to_customer(@customer2, @pimms)
+        assert_equal("Sorry, you had enough for today!", response)
+        assert_equal(1500, @pub.till())
+        assert_equal(45, @customer2.wallet())
     end
 
     def test_can_sell_drink_to_customer_is_too_young()
