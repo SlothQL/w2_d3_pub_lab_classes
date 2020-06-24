@@ -14,6 +14,8 @@ class TestPub < Minitest::Test
         @pimms = Drink.new("Pimm's", 6)
         @drinks = [@beer, @gin, @pimms]
         @pub = Pub.new("Ryrie's", 1500, @drinks)
+        @customer1 = Customer.new("Alina", 50)
+        @customer2 = Customer.new("Rebeka", 45)
     end
 
     def test_pub_has_name
@@ -37,6 +39,17 @@ class TestPub < Minitest::Test
         @pub.increase_till(@gin.price())
         assert_equal(1504, @pub.till())
     end
+    
+    def test_get_price_of_drink()
+        price = @pub.get_price_of_drink(@gin)
+        assert_equal(4, price)
+    end
 
+    #def test_customer_can_buy_drink_from_pub()
+     #  @pub.can_sell_drink_to_customer(@customer1)
+     #  assert_equal(1504, @pub.till())
+    #   assert_equal(46, @customer1.wallet())
+    #end
+    
 
 end
